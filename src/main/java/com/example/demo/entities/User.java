@@ -18,7 +18,17 @@ public class User {
     private String login;
 
     @Column(name = "password", nullable = false, length = 200)
+    private String hashPassword;
+    @Transient
     private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;
@@ -36,12 +46,12 @@ public class User {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getHashPassword() {
+        return hashPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setHashPassword(String password) {
+        this.hashPassword = password;
     }
 
 }

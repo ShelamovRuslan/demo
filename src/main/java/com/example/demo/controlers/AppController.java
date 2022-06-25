@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AppController {
 
-    private final DefaultProductRepository defRepository;
+    private final DefaultProductRepository defaultProductRepository;
     private final ExpressionService expressionService;
 
-    private final UserProductRepository userRepository;
+    private final UserProductRepository userProductRepository;
 
     @Autowired
     public AppController(DefaultProductRepository defaultProductRepository,
                          ExpressionService expressionService,
-                         UserProductRepository userRepository) {
-        this.defRepository = defaultProductRepository;
+                         UserProductRepository userProductRepository) {
+        this.defaultProductRepository = defaultProductRepository;
 
         this.expressionService = expressionService;
-        this.userRepository = userRepository;
+        this.userProductRepository = userProductRepository;
     }
 
     @GetMapping("/all-products")
     public String ShowAll (Model model) {
         model.addAttribute("AllUserProducts",
-                userRepository.findAll());
+                userProductRepository.findAll());
         return "result";
     }
 
@@ -50,7 +50,7 @@ public class AppController {
                 fat,
                 carbohydrates,
                 kcal);
-        userRepository.save(userProduct);
+        userProductRepository.save(userProduct);
         return "redirect:/all-products";
     }
 
