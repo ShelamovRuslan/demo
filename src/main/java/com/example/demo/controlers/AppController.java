@@ -2,9 +2,7 @@ package com.example.demo.controlers;
 
 import com.example.demo.entities.Product;
 import com.example.demo.entities.User;
-import com.example.demo.entities.UserProduct;
 import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.UserProductRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,23 +14,20 @@ import com.example.demo.service.ExpressionService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
-import java.util.List;
-
 
 @Controller
 public class AppController {
 
     private User user;
-    private final UserProductRepository userProductRepository;
     private final ExpressionService expressionService;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public AppController(UserProductRepository userProductRepository, ExpressionService expressionService,
-                         ProductRepository productRepository, com.example.demo.repository.UserRepository userRepository){
-        this.userProductRepository = userProductRepository;
+    public AppController(ExpressionService expressionService,
+                         ProductRepository productRepository,
+                         UserRepository userRepository){
+
         this.expressionService = expressionService;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
@@ -42,13 +37,16 @@ public class AppController {
     public String ShowAll (Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByLogin(auth.getName());
-
         model.addAttribute("AllUserProducts",
-               1);
+               productRepository.findAllByUser(user));
         return "result";
     }
 
-
+    @PostMapping("/okey")
+    public String okey(@RequestParam String value){
+        System.out.println(value);
+        return "redirect:/ok";
+    }
 
     @PostMapping("/add")
     public String addExpression(@RequestParam String name,
@@ -56,13 +54,16 @@ public class AppController {
                                 double fat,
                                 double carbohydrates,
                                 double kcal ){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByLogin(auth.getName());
         Product product = new Product(
                 0,
                 name,
                 protein,
                 fat,
                 carbohydrates,
-                kcal);
+                kcal,
+                user);
         productRepository.save(product);
         return "redirect:/all-products";
     }

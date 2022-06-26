@@ -29,8 +29,10 @@ public class Product {
     @Column(name = "kcal", nullable = false)
     private Double kcal;
 
-    public Product(int i, String name, double protein, double fat, double carbohydrates, double kcal) {
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public Integer getId() {
         return id;
@@ -78,6 +80,14 @@ public class Product {
 
     public void setKcal(Double kcal) {
         this.kcal = kcal;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

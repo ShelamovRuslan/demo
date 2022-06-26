@@ -11,6 +11,7 @@
 <table>
     <thead>
     <tr>
+        <th></th>
         <th>Название</th>
         <th>Белки</th>
         <th>Жиры</th>
@@ -20,6 +21,8 @@
     </thead>
     <tbody>
     <tr th:each="product : ${AllUserProducts}">
+        <td><input type="radio" id="${product.id}" name="browser" value="${product.id}">
+        </td>
         <td th:text="${product.name}"></td>
         <td th:text="${product.protein}"></td>
         <td th:text="${product.fat}"></td>
@@ -28,26 +31,25 @@
     </tr>
     </tbody>
 </table>
-<form action="add" method="post">
-    <p>
-    <input id="name" type="text" name="name">
-    <label for="name">Название</label>
-    </p><p>
-    <input id="protein" type="number" step="0.01" name="protein">
-    <label for="protein">Протеин</label>
-    </p><p>
-    <input id="fat" type="number" step="0.01" name="fat">
-    <label for="fat">Жиры</label>
-    </p><p>
-    <input id="carbohydrates" type="number" step="0.01" name="carbohydrates">
-    <label for="carbohydrates">Углеводы</label>
-    </p><p>
-    <input id="kcal" type="number" step="0.01" name="kcal">
-    <label for="kcal">Калории</label>
-    </p><p>
-    <input type="submit" value="Добавить">
-    </p>
-</form>
 
+<form action="/okey" method="post">
+    <p>Please select your preferred contact method:</p>
+    <div>
+        <input type="radio" id="contactChoice1"
+               name="contact" value="email">
+        <label for="contactChoice1">Email</label>
+
+        <input type="radio" id="contactChoice2"
+               name="contact" value="phone">
+        <label for="contactChoice2">Phone</label>
+
+        <input type="radio" id="contactChoice3"
+               name="contact" value="mail">
+        <label for="contactChoice3">Mail</label>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
 </body>
 </html>
