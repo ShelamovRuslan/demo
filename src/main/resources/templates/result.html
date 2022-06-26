@@ -24,7 +24,7 @@
     <tbody>
     <tr th:each="product : ${AllUserProducts}">
         <td>
-        <input type="radio" id="radio"
+        <input type="radio" id="radio" checked="checked"
                name="idSelectProduct" th:value="${product.id}">
         </td>
         <label for="radio">
