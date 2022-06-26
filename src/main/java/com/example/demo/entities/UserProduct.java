@@ -1,33 +1,20 @@
 package com.example.demo.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Table(name = "user_product")
 public class UserProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user_product", nullable = false)
+    @Column(name = "line_id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 200)
-    private String name;
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
 
-    @Column(name = "protein", nullable = false)
-    private Double protein;
-
-    @Column(name = "fat", nullable = false)
-    private Double fat;
-
-    @Column(name = "carbohydrates", nullable = false)
-    private Double carbohydrates;
-
-    @Column(name = "kcal", nullable = false)
-    private Double kcal;
+    @Column(name = "product_id", nullable = false)
+    private Integer productId;
 
     public Integer getId() {
         return id;
@@ -37,44 +24,20 @@ public class UserProduct {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Double getProtein() {
-        return protein;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProtein(Double protein) {
-        this.protein = protein;
-    }
-
-    public Double getFat() {
-        return fat;
-    }
-
-    public void setFat(Double fat) {
-        this.fat = fat;
-    }
-
-    public Double getCarbohydrates() {
-        return carbohydrates;
-    }
-
-    public void setCarbohydrates(Double carbohydrates) {
-        this.carbohydrates = carbohydrates;
-    }
-
-    public Double getKcal() {
-        return kcal;
-    }
-
-    public void setKcal(Double kcal) {
-        this.kcal = kcal;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
 }

@@ -21,14 +21,14 @@ public class SingUpController {
     }
 
 
-    @GetMapping ("/singup")
+    @GetMapping ("/sing-up")
     public String getSingUpPage () {
-        return "singup_page";
+        return "sing-up-page";
     }
-    @PostMapping("/singup")
+    @PostMapping("/sing-up")
     public String singUpUser (User user) {
         user.setHashPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return "redirect:/singup";
+        return "redirect:/sing-in";
     }
 }

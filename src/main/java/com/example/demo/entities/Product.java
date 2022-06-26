@@ -7,11 +7,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "default_products")
-public class DefaultProduct {
+@Table(name = "product")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_product", nullable = false)
     private Integer id;
 
     @Column(name = "name", nullable = false, length = 200)
@@ -28,6 +28,9 @@ public class DefaultProduct {
 
     @Column(name = "kcal", nullable = false)
     private Double kcal;
+
+    public Product(int i, String name, double protein, double fat, double carbohydrates, double kcal) {
+    }
 
     public Integer getId() {
         return id;

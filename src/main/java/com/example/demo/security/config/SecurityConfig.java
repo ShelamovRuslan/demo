@@ -3,12 +3,14 @@ package com.example.demo.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,16 +25,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests().
                 antMatchers("/all-products").authenticated().
-                antMatchers("/singup").permitAll()
+                antMatchers("/sing-up").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/sing-in")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/all-products")
-                .failureForwardUrl("/sing-in")
+                .defaultSuccessUrl("/user-page")
+                .failureForwardUrl("/incorrect-password")
                 .permitAll();
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
