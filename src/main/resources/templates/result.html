@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/st.css">
 </head>
 <body>
+<form>
+    <div>
 <table>
     <thead>
     <tr>
@@ -21,35 +23,27 @@
     </thead>
     <tbody>
     <tr th:each="product : ${AllUserProducts}">
-        <td><input type="radio" id="${product.id}" name="browser" value="${product.id}">
+        <td>
+        <input type="checkbox" id="checkbox"
+               name="delete" th:value="${product.id}">
         </td>
+        <label for="checkbox">
         <td th:text="${product.name}"></td>
         <td th:text="${product.protein}"></td>
         <td th:text="${product.fat}"></td>
         <td th:text="${product.carbohydrates}"></td>
         <td th:text="${product.kcal}"></td>
+        </label>
     </tr>
     </tbody>
 </table>
-
-<form action="/okey" method="post">
-    <p>Please select your preferred contact method:</p>
-    <div>
-        <input type="radio" id="contactChoice1"
-               name="contact" value="email">
-        <label for="contactChoice1">Email</label>
-
-        <input type="radio" id="contactChoice2"
-               name="contact" value="phone">
-        <label for="contactChoice2">Phone</label>
-
-        <input type="radio" id="contactChoice3"
-               name="contact" value="mail">
-        <label for="contactChoice3">Mail</label>
     </div>
     <div>
-        <button type="submit">Submit</button>
+        <button type="submit" value="delete">Submit</button>
     </div>
 </form>
+
+
+
 </body>
 </html>
