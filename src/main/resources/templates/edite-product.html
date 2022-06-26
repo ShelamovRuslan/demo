@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="ru">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/edite-part-two" method="post">
+
+    <input type="hidden" name="id" th:value="${product.id}">
+
+  <p>
+    <input id="name" type="text" name="name" th:value="${product.name}">
+    <label for="name" >Название</label>
+  </p><p>
+  <input id="protein" type="number" step="0.01" name="protein" th:value="${product.protein}">
+  <label for="protein" >Протеин</label>
+</p><p>
+  <input id="fat" type="number" step="0.01" name="fat" th:value="${product.fat}">
+  <label for="fat" >Жиры</label>
+</p><p>
+  <input id="carbohydrates" type="number" step="0.01" name="carbohydrates"th:value="${product.carbohydrates}">
+  <label for="carbohydrates" >Углеводы</label>
+</p><p>
+  <input id="kcal" type="number" step="0.01" name="kcal" th:value="${product.kcal}">
+  <label for="kcal" >Калории</label>
+</p><p>
+  <input type="submit" value="Добавить">
+</p>
+</form>
+</body>
+</html>

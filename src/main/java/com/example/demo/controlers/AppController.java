@@ -9,10 +9,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.ExpressionService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.w3c.dom.html.HTMLTableRowElement;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 
 @Controller
@@ -42,14 +44,59 @@ public class AppController {
         return "result";
     }
 
-    @PostMapping("/okey")
-    public String okey(@RequestParam String value){
-        System.out.println(value);
-        return "redirect:/ok";
+    @GetMapping("/delete")
+    public String deleteExpression(HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByLogin(auth.getName());
+        Optional<Product> product = productRepository
+                .findById(Integer.parseInt(request
+                        .getParameter("idSelectProduct")));
+        deleteProduct(product);
+        return "redirect:/all-products";
     }
 
+    @GetMapping("/edite")
+    public String editeProduct(HttpServletRequest request, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByLogin(auth.getName());
+        Optional<Product> product = productRepository
+                .findById(Integer.parseInt(request
+                        .getParameter("idSelectProduct")));
+        if (product.isPresent()){
+            if (user.equals(product.get().getUser())){
+                model.addAttribute("product",
+                        product.get());
+                return "edite-product";
+            }
+        }
+        return "redirect:/all-products";
+    }
+
+    @PostMapping("/edite-part-two")
+    public String editePartTwo(@RequestParam
+    int id,
+    String name,
+    double protein,
+    double fat,
+    double carbohydrates,
+    double kcal ){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByLogin(auth.getName());
+        Product product = new Product(
+                0,
+                name,
+                protein,
+                fat,
+                carbohydrates,
+                kcal,
+                user);
+        productRepository.save(product);
+        deleteProduct(productRepository.findById(id));
+        return "redirect:/all-products";
+    }
     @PostMapping("/add")
-    public String addExpression(@RequestParam String name,
+    public String addUserProduct(@RequestParam
+                                String name,
                                 double protein,
                                 double fat,
                                 double carbohydrates,
@@ -66,6 +113,16 @@ public class AppController {
                 user);
         productRepository.save(product);
         return "redirect:/all-products";
+    }
+
+    public void deleteProduct (Optional<Product> product) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByLogin(auth.getName());
+        if (product.isPresent()){
+            if (user.equals(product.get().getUser())){
+                productRepository.delete(product.get());
+            }
+        }
     }
 
 }
