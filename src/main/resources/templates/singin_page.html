@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/sing-in" method="post">
+<form action="" method="">
     <p>
         <input id="login" type="text" name="login">
         <label for="login">login</label>
@@ -13,13 +13,10 @@
     <input id="password" type="password" name="password">
     <label for="password">password</label>
 </p><p>
-    <input type="submit" value="Войти">
+    <button formaction="/sing-in" formmethod="post" type="submit">Войти</button>
+    <button formaction="/sing-up" formmethod="get" type="submit">Регистрация</button>
 </p>
 </form>
-<form action="/sing-up" method="get">
-    <input type="submit" value="Регистрация">
-</form>
-
 
 </body>
 </html>
