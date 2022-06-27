@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.service.ExpressionService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
@@ -19,34 +18,31 @@ import java.util.Optional;
 @Controller
 public class AppController {
 
-    private User user;
-    private final ExpressionService expressionService;
+
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public AppController(ExpressionService expressionService,
-                         ProductRepository productRepository,
+    public AppController(ProductRepository productRepository,
                          UserRepository userRepository){
-
-        this.expressionService = expressionService;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
     }
 
     @GetMapping("/all-products")
     public String ShowAll (Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByLogin(auth.getName());
         model.addAttribute("AllUserProducts",
-               productRepository.findAllByUser(user));
+               productRepository.findAllByUser(getCurrentUser()));
         return "result";
     }
 
-    @GetMapping("/delete")
-    public String deleteExpression(HttpServletRequest request) {
+    private User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByLogin(auth.getName());
+        return userRepository.findByLogin(auth.getName());
+    }
+
+    @GetMapping("/delete")
+    public String deleteProduct(HttpServletRequest request) {
         Optional<Product> product = productRepository
                 .findById(Integer.parseInt(request
                         .getParameter("idSelectProduct")));
@@ -56,13 +52,11 @@ public class AppController {
 
     @GetMapping("/edite")
     public String editeProduct(HttpServletRequest request, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByLogin(auth.getName());
         Optional<Product> product = productRepository
                 .findById(Integer.parseInt(request
                         .getParameter("idSelectProduct")));
         if (product.isPresent()){
-            if (user.equals(product.get().getUser())){
+            if (getCurrentUser().equals(product.get().getUser())){
                 model.addAttribute("product",
                         product.get());
                 return "edite-product";
@@ -79,8 +73,6 @@ public class AppController {
     double fat,
     double carbohydrates,
     double kcal ){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByLogin(auth.getName());
         Product product = new Product(
                 0,
                 name,
@@ -88,7 +80,7 @@ public class AppController {
                 fat,
                 carbohydrates,
                 kcal,
-                user);
+                getCurrentUser());
         productRepository.save(product);
         deleteProduct(productRepository.findById(id));
         return "redirect:/all-products";
@@ -100,8 +92,6 @@ public class AppController {
                                 double fat,
                                 double carbohydrates,
                                 double kcal ){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByLogin(auth.getName());
         Product product = new Product(
                 0,
                 name,
@@ -109,7 +99,7 @@ public class AppController {
                 fat,
                 carbohydrates,
                 kcal,
-                user);
+                getCurrentUser());
         productRepository.save(product);
         return "redirect:/all-products";
     }
