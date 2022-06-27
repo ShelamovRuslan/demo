@@ -1,7 +1,7 @@
-package com.example.demo.controlers;
+package com.example.demospring.controlers;
 
-import com.example.demo.entities.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demospring.entities.User;
+import com.example.demospring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
