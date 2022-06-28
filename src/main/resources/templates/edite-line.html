@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список покупок</title>
+</head>
+<body>
+<form action="/edite-two" method="post">
+
+  <input type="hidden" name="id" th:value="${line.id}">
+
+
+  <th:texta th:text="${line.product.name}"></th:texta>
+  <input id="quantity" type="number" name="quantity" th:value="${line.quantity}">
+
+</p><p>
+  <input type="submit" value="Добавить">
+</p>
+</form>
+</body>
+</html>

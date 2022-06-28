@@ -73,16 +73,13 @@ public class AppController {
     double fat,
     double carbohydrates,
     double kcal ){
-        Product product = new Product(
-                0,
-                name,
-                protein,
-                fat,
-                carbohydrates,
-                kcal,
-                getCurrentUser());
+        Product product = productRepository.findById(id).orElseThrow();
+        product.setName(name);
+        product.setProtein(protein);
+        product.setFat(fat);
+        product.setCarbohydrates(carbohydrates);
+        product.setKcal(kcal);
         productRepository.save(product);
-        deleteProduct(productRepository.findById(id));
         return "redirect:/all-products";
     }
     @PostMapping("/add")
@@ -105,10 +102,8 @@ public class AppController {
     }
 
     public void deleteProduct (Optional<Product> product) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByLogin(auth.getName());
-        if (product.isPresent()){
-            if (user.equals(product.get().getUser())){
+       if (product.isPresent()){
+            if (getCurrentUser().equals(product.get().getUser())){
                 productRepository.delete(product.get());
             }
         }

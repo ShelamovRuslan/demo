@@ -12,34 +12,31 @@
             <tr>
                 <th></th>
                 <th>Название</th>
-                <th>Белки</th>
-                <th>Жиры</th>
-                <th>Углеводы</th>
-                <th>Калории</th>
+                <th>Колличество</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="product : ${shoppingList}">
+            <tr th:each="line:${shoppingList}">
                 <td>
                     <input type="radio" id="radio" checked="checked"
-                           name="idSelectProduct" th:value="${product.id}">
+                           name="idSelectLine" th:value="${line.id}">
                 </td>
                 <label for="radio">
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.protein}"></td>
-                    <td th:text="${product.fat}"></td>
-                    <td th:text="${product.carbohydrates}"></td>
-                    <td th:text="${product.kcal}"></td>
+                    <td th:text="${line.product.name}"></td>
+                    <td th:text="${line.quantity}+грам"></td>
+
                 </label>
             </tr>
             </tbody>
         </table>
     </div>
     <div>
-        <button formaction="/add-product" formmethod="get" type="submit">Добавить</button>
         <button formaction="/delete" formmethod="get" type="submit">Удалить</button>
-        <button formaction="/edite" formmethod="get" type="submit">Редактировать</button>
+        <button formaction="/edite-line" formmethod="get" type="submit">Редактировать</button>
     </div>
+
+    <h1 th:text="${report}" ></h1>
+
 </form>
 </body>
 </html>
