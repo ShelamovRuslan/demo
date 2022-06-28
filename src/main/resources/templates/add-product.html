@@ -7,19 +7,19 @@
 <body>
 <form action="/add" method="post">
     <p>
-        <input id="name" type="text" name="name">
+        <input id="name" type="text" name="name" required>
         <label for="name">Название</label>
     </p><p>
-    <input id="protein" type="number" step="0.01" name="protein">
+    <input id="protein" type="number" step="0.01" name="protein" required>
     <label for="protein">Протеин</label>
 </p><p>
-    <input id="fat" type="number" step="0.01" name="fat">
+    <input id="fat" type="number" step="0.01" name="fat" required>
     <label for="fat">Жиры</label>
 </p><p>
-    <input id="carbohydrates" type="number" step="0.01" name="carbohydrates">
+    <input id="carbohydrates" type="number" step="0.01" name="carbohydrates" required>
     <label for="carbohydrates">Углеводы</label>
 </p><p>
-    <input id="kcal" type="number" step="0.01" name="kcal">
+    <input id="kcal" type="number" step="0.01" name="kcal" required>
     <label for="kcal">Калории</label>
 </p><p>
     <input type="submit" value="Добавить">

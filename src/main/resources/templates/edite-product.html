@@ -12,19 +12,19 @@
     <input type="hidden" name="id" th:value="${product.id}">
 
   <p>
-    <input id="name" type="text" name="name" th:value="${product.name}">
+    <input id="name" type="text" name="name" th:value="${product.name}"  required>
     <label for="name" >Название</label>
   </p><p>
-  <input id="protein" type="number" step="0.01" name="protein" th:value="${product.protein}">
+  <input id="protein" type="number" step="0.01" name="protein" th:value="${product.protein}"  required>
   <label for="protein" >Протеин</label>
 </p><p>
-  <input id="fat" type="number" step="0.01" name="fat" th:value="${product.fat}">
+  <input id="fat" type="number" step="0.01" name="fat" th:value="${product.fat}" required>
   <label for="fat" >Жиры</label>
 </p><p>
-  <input id="carbohydrates" type="number" step="0.01" name="carbohydrates"th:value="${product.carbohydrates}">
+  <input id="carbohydrates" type="number" step="0.01" name="carbohydrates"th:value="${product.carbohydrates}" required>
   <label for="carbohydrates" >Углеводы</label>
 </p><p>
-  <input id="kcal" type="number" step="0.01" name="kcal" th:value="${product.kcal}">
+  <input id="kcal" type="number" step="0.01" name="kcal" th:value="${product.kcal}" required>
   <label for="kcal" >Калории</label>
 </p><p>
   <input type="submit" value="Добавить">
