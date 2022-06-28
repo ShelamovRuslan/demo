@@ -82,7 +82,7 @@ public class ControllerShoppingList {
         }
         if (getCurrentUser().equals(product.get().getUser())){
             shoppingListRepository.save(new LineShoppingList(0,
-                    100,product.get(), getCurrentUser()));
+                    0,product.get(), getCurrentUser()));
             return "redirect:/all-products";
         }
         return "redirect:/user-page";
