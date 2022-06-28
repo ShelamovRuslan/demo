@@ -20,14 +20,12 @@ public class Calorizator {
     private double proportionFat;
     private double proportionCarbohydrates;
 
-    private String report;
     private int quantity;
 
-    public String getReport() {
-        return report;
-    }
+
 
     public void set (ArrayList<LineShoppingList> lines) {
+       reload();
        Product currentProduct;
        expressionService = new ExpressionService();
        for (LineShoppingList line :lines){
@@ -38,25 +36,54 @@ public class Calorizator {
            sumFat += sum(currentProduct.getFat());
            sumCarbohydrates += sum(currentProduct.getCarbohydrates());
        }
+       if (sumProtein == 0 && sumCarbohydrates == 0 && sumFat == 0){
+           sumCarbohydrates = 0.01;
+       }
        this.proportionProtein = proportion(sumProtein, sumCarbohydrates, sumFat);
        this.proportionFat = proportion(sumFat, sumCarbohydrates, sumProtein);
        this.proportionCarbohydrates = proportion(sumCarbohydrates, sumFat, sumProtein);
-       createReport();
-       this.report = "ЕХААА";
+
    }
 
-   private void createReport () {
-       /* this. report = String.format("""
-               Продукты в заданом списке покупок содержат:
-               %s каллорий, %s белков, %s жиров, %s углеводов.
-               
-               Соотношение БЖУ:
-               %s% белков
-               %s% жиров
-               %s% углеводов
-               """, sumKcal, sumProtein, sumFat, sumCarbohydrates,
-               proportionProtein, proportionFat, proportionCarbohydrates);*/
-   }
+    public void reload() {
+        this.sumKcal = 0;
+        this.sumProtein = 0;
+        this.sumFat = 0;
+        this.sumCarbohydrates = 0;
+        this.proportionProtein = 0;
+        this.proportionFat = 0;
+        this.proportionCarbohydrates = 0;
+        this.quantity = 0;
+    }
+
+    public String getSumKcal() {
+        return String.format("%.2f", sumKcal);
+    }
+
+    public String getSumProtein() {
+        return String.format("%.2f", sumProtein);
+    }
+
+    public String getSumFat() {
+        return String.format("%.2f", sumFat);
+    }
+
+    public String getSumCarbohydrates() {
+        return String.format("%.2f", sumCarbohydrates);
+    }
+
+    public String getProportionProtein() {
+        return String.format("%.2f", proportionProtein);
+    }
+
+    public String getProportionFat() {
+        return String.format("%.2f", proportionFat);
+    }
+
+    public String getProportionCarbohydrates() {
+        return String.format("%.2f", proportionCarbohydrates);
+    }
+
     private double proportion (double desired, double second, double third) {
         return expressionService.calculate(
                 String.format("%s/(%s+%s+%s)*100",

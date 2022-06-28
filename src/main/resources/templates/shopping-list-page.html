@@ -31,11 +31,50 @@
         </table>
     </div>
     <div>
-        <button formaction="/delete" formmethod="get" type="submit">Удалить</button>
+        <button formaction="/delete-line" formmethod="get" type="submit">Удалить</button>
         <button formaction="/edite-line" formmethod="get" type="submit">Редактировать</button>
     </div>
+<p>Продукты из заданного списока содержат</p>
+    <table>
 
-    <h1 th:text="${report}" ></h1>
+        <tbody>
+        <tr>
+            <td th:text="${SumKcal}">
+            </td>
+            <td>каллорий</td>
+        </tr>
+        <tr>
+            <td th:text="${SumProtein}">
+            </td>
+            <td>белков</td>
+        </tr>
+        <tr>
+            <td th:text="${SumFat}">
+            </td>
+            <td>жиров</td>
+        </tr>
+        <tr>
+            <td th:text="${SumCarbohydrates}">
+            </td>
+            <td>углеводов</td>
+        </tr>
+        <tr>
+            <td th:text="${ProportionProtein}">
+            </td>
+            <td>% содержания белков</td>
+        </tr>
+        <tr>
+            <td th:text="${ProportionFat}">
+            </td>
+            <td>% содержания жиров</td>
+        </tr>
+        <tr>
+            <td th:text="${ProportionCarbohydrates}">
+            </td>
+            <td>% содержания углеводов</td>
+        </tr>
+        </tbody>
+    </table>
 
 </form>
 </body>

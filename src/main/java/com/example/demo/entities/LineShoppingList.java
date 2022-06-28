@@ -1,8 +1,12 @@
 package com.example.demo.entities;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+@NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "shopping_list")
 public class LineShoppingList {
     @Id
@@ -20,6 +24,8 @@ public class LineShoppingList {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+
 
     public Integer getId() {
         return id;
