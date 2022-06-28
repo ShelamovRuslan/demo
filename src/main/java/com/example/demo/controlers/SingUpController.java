@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SingUpController {
 
     private final UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SingUpController(UserRepository userRepository) {
+    public SingUpController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -27,8 +28,11 @@ public class SingUpController {
     }
     @PostMapping("/sing-up")
     public String singUpUser (User user) {
-        user.setHashPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        User userByLogin = userRepository.findByLogin(user.getLogin());
+        if (userByLogin == null){
+            user.setHashPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
         return "redirect:/sing-in";
     }
 }

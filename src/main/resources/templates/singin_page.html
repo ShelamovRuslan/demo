@@ -7,14 +7,14 @@
 <body>
 <form action="" method="">
     <p>
-        <input id="login" type="email" name="login">
+        <input id="login" type="email" name="login" required>
         <label for="login">login</label>
     </p><p>
-    <input id="password" type="password" name="password">
+    <input id="password" type="password" name="password" required>
     <label for="password">password</label>
 </p><p>
     <button formaction="/sing-in" formmethod="post" type="submit">Войти</button>
-    <button formaction="/sing-up" formmethod="get" type="submit">Регистрация</button>
+    <button formaction="/incorrect-password" formmethod="post" type="submit">Регистрация</button>
 </p>
 </form>
 

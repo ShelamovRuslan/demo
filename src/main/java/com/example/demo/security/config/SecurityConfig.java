@@ -25,9 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers("/all-products").authenticated().
                 antMatchers("/edite").authenticated().
                 antMatchers("/user-page").authenticated().
-                antMatchers("/all-products").authenticated().
-                antMatchers("/all-products").authenticated().
-                antMatchers("/all-products").authenticated().
+                antMatchers("/add-product").authenticated().
+                antMatchers("/edite").authenticated().
+                antMatchers("/edite-line").authenticated().
+                antMatchers("/shopping-list").authenticated().
                 antMatchers("/sing-up").permitAll()
                 .and()
                 .formLogin()
